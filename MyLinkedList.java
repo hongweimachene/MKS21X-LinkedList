@@ -5,52 +5,49 @@ public class MyLinkedList{
     public Node(int val) {
       data = val;
     }
-    public Node next() {
+    private Node next() {
       return next;
     }
-    public Node prev() {
+    private Node prev() {
       return prev;
     }
     public Integer value() {
       return data;
     }
-    public void setNext(Node next) {
+    private void setNext(Node next) {
       this.next = next;
     }
-    public void setPrev(Node prev) {
+    private void setPrev(Node prev) {
       this.prev = prev;
     }
     public void set(int val) {
       this.data = val;
     }
-
   }
-  private int size;
+  private int length;
   private Node start,end;
 
   public MyLinkedList(){
-    size = 0;
+    length = 0;
   }
   public int size(){
-    return size;
+    return length;
   }
 
   public boolean add(int value){
     Node t = new Node(value);
-    if (size == 0) {
+    if (size() == 0) {
       start = t;
-    }
-    if (size == 1) {
       end = t;
-      start.setNext(end);
-      end.setPrev(start);
     } else {
       end.setNext(t);
       t.setPrev(end);
       end = t;
     }
-    size++;
+    length++;
+    return true;
   }
+
   public String toString(){
     Node current = start;
     String s = "";
@@ -58,6 +55,10 @@ public class MyLinkedList{
       s+=current.value()+", ";
       current = current.next();
     }
-    return s;
+    return s.substring(0,s.length()-2);
+  }
+
+  private Node getNode(int index) {
+    
   }
 }
