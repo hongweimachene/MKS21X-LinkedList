@@ -3,17 +3,27 @@ public class MyLinkedList{
   private Node start,end;
 
   public MyLinkedList(){
-    start = null;
-    end = null;
     size = 0;
   }
   public int size(){
     return size;
   }
+
   public boolean add(int value){
+    Node t = new Node(value);
     if (size == 0) {
-      start = new Node(value,)
+      start = t;
     }
+    if (size == 1) {
+      end = t;
+      start.setNext(end);
+      end.setPrev(start);
+    } else {
+      end.setNext(t);
+      t.setPrev(end);
+      end = t;
+    }
+    size++;
   }
   public String toString();
 }
