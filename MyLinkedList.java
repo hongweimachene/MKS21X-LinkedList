@@ -25,5 +25,17 @@ public class MyLinkedList{
     }
     size++;
   }
-  public String toString();
+  public String toString(){
+    Node current = start;
+    String s = '';
+    for (int i = 0; i < size(); i++){
+      if (i == size()-1){
+        s+=current.getData();
+      } else {
+        s+=current.getData()+", ";
+      }
+      current = current.getNext();
+    }
+    return s;
+  }
 }
