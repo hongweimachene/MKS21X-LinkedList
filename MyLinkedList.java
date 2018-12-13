@@ -27,14 +27,10 @@ public class MyLinkedList{
   }
   public String toString(){
     Node current = start;
-    String s = '';
-    for (int i = 0; i < size(); i++){
-      if (i == size()-1){
-        s+=current.getData();
-      } else {
-        s+=current.getData()+", ";
-      }
-      current = current.getNext();
+    String s = "";
+    while(current!=null){
+      s+=current.value()+", ";
+      current = current.next();
     }
     return s;
   }

@@ -1,16 +1,16 @@
 public class Node{
-  private int data;
+  private Integer data;
   private Node next,prev;
   public Node(int val) {
     data = val;
   }
-  public void getNext() {
+  public Node next() {
     return next;
   }
-  public void getPrev() {
+  public Node prev() {
     return prev;
   }
-  public void getData() {
+  public Integer value() {
     return data;
   }
   public void setNext(Node next) {
@@ -19,7 +19,7 @@ public class Node{
   public void setPrev(Node prev) {
     this.prev = prev;
   }
-  public void setData(int val) {
+  public void set(int val) {
     this.data = val;
   }
 
