@@ -20,8 +20,10 @@ public class MyLinkedList{
     private void setPrev(Node other) {
       prev = other;
     }
-    public void set(int val) {
+    public Integer set(int val) {
+      Integer original = data;
       data = val;
+      return original;
     }
   }
   private int length;
@@ -50,12 +52,12 @@ public class MyLinkedList{
 
   public String toString(){
     Node current = start;
-    String s = "";
+    String s = "[";
     while(current!=null){
       s+=current.value()+", ";
       current = current.next();
     }
-    return s.substring(0,s.length()-2);
+    return s.substring(0,s.length()-2)+"]";
   }
 
   private Node getNthNode(int index) {
@@ -75,8 +77,9 @@ public class MyLinkedList{
   }
 
   public Integer set(int index, Integer value){
+    Integer origin = getNthNode(index).value();
     getNthNode(index).set(value);
-    return value;
+    return origin;
   }
 
   public boolean contains(Integer value) {
@@ -114,16 +117,70 @@ public class MyLinkedList{
   public Integer remove(int index) {
     Node t = getNthNode(index);
     Integer value = t.value();
-    t.next().setPrev(t.prev());
-    t.prev().setNext(t.next());
+    if(size() == 1) {
+      start = null;
+      end = null;
+    }
+    if (size() == 2) {
+      t.prev().setNext(null);
+    } else {
+      t.next().setPrev(t.prev());
+      t.prev().setNext(t.next());
+    }
+    length--;
     return value;
   }
 
   public boolean remove(Integer value) {
     Node t = getNthNode(indexOf(value));
-    t.next().setPrev(t.prev());
-    t.prev().setNext(t.next());
+    if(size() == 1) {
+      start = null;
+      end = null;
+    }
+    if (size() == 2) {
+      t.prev().setNext(null);
+    }
+    if (t == end) {
+      end = t.prev();
+      
+    } else {
+      t.next().setPrev(t.prev());
+      t.prev().setNext(t.next());
+    }
     return true;
+  }
+
+  public static void main(String[] args) {
+    MyLinkedList a = new MyLinkedList();
+    System.out.println();
+    a.add(1);
+    System.out.println(a);
+    a.add(13);
+    System.out.println(a);
+    System.out.println(a.size());
+    System.out.println(a.indexOf(13));
+    a.add(15);
+    a.add(5);
+    a.add(7);
+    a.add(9);
+    a.add(6);
+    System.out.println(a);
+    System.out.println(a.remove(1));
+    System.out.println(a);
+    a.add(2);
+    System.out.println(a);
+    a.add(1,4);
+    System.out.println(a);
+    System.out.println(a.contains(15));
+    System.out.println(a.contains(86));
+    System.out.println(a.indexOf(17));
+    System.out.println(a.indexOf(2));
+    System.out.println(a.remove((Integer) 5));
+    System.out.println(a);
+    System.out.println(a.size());
+    System.out.println(a.get(0));
+    System.out.println(a.set(0,3));
+    System.out.println(a);
   }
 
 }
