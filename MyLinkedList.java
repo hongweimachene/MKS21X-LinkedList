@@ -101,5 +101,21 @@ public class MyLinkedList{
     }
     return -1;
   }
+  public void add(int index, Integer value) {
+    Node t = getNthNode(index);
+    Node u = getNthNode(index).prev();
+    Node v = new Node(value);
+    u.setNext(v);
+    v.setPrev(u);
+    v.setNext(t);
+    t.setPrev(v);
+  }
+
+  public boolean remove(int index) {
+    Node t = getNthNode(index);
+    t.next().setPrev(t.prev());
+    t.prev().setNext(t.next());
+    return true;
+  }
 
 }
