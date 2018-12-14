@@ -14,14 +14,14 @@ public class MyLinkedList{
     public Integer value() {
       return data;
     }
-    private void setNext(Node next) {
-      this.next = next;
+    private void setNext(Node other) {
+      next = other;
     }
-    private void setPrev(Node prev) {
-      this.prev = prev;
+    private void setPrev(Node other) {
+      prev = other;
     }
     public void set(int val) {
-      this.data = val;
+      data = val;
     }
   }
   private int length;
@@ -58,7 +58,28 @@ public class MyLinkedList{
     return s.substring(0,s.length()-2);
   }
 
-  private Node getNode(int index) {
-    
+  private Node getNthNode(int index) {
+    int pos = 0;
+    Node current = start;
+    if (current != null) {
+      while (pos < index) {
+        current = current.next();
+        pos++;
+      }
+    }
+    return current;
   }
+
+  public Integer get(int index) {
+    return getNthNode(index).value();
+  }
+
+  public Integer set(int index, Integer value){
+    getNthNode(index).set(value);
+    return value;
+  }
+
+  //private Node getNode(int index) {
+
+  //}
 }
