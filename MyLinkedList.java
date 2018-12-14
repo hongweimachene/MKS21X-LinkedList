@@ -111,8 +111,16 @@ public class MyLinkedList{
     t.setPrev(v);
   }
 
-  public boolean remove(int index) {
+  public Integer remove(int index) {
     Node t = getNthNode(index);
+    Integer value = t.value();
+    t.next().setPrev(t.prev());
+    t.prev().setNext(t.next());
+    return value;
+  }
+
+  public boolean remove(Integer value) {
+    Node t = getNthNode(indexOf(value));
     t.next().setPrev(t.prev());
     t.prev().setNext(t.next());
     return true;
