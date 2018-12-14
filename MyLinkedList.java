@@ -79,7 +79,27 @@ public class MyLinkedList{
     return value;
   }
 
-  //private Node getNode(int index) {
+  public boolean contains(Integer value) {
+    Node current = start;
+    while (current != null){
+      if (current.value() == value) {
+        return true;
+      }
+      current = current.next();
+    }
+    return false;
+  }
+  public int indexOf(Integer value) {
+    Node current = start;
+    int index = 0;
+    while (current != null) {
+      if (current.value() == value){
+        return index;
+      }
+      current = current.next();
+      index++;
+    }
+    return -1;
+  }
 
-  //}
 }
