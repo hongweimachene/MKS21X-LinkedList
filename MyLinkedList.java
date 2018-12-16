@@ -71,6 +71,9 @@ public class MyLinkedList{
 
   //helper method to get node at index, private since no one should be able to see nodes
   private Node getNthNode(int index) {
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException();
+    }
     int pos = 0;
     Node current = start;
     //the end will be null once it reaches the end
@@ -196,16 +199,16 @@ public class MyLinkedList{
     System.out.println(a.get(0));
     System.out.println(a.set(0,3));
     System.out.println(a);
-    MyLinkedList b = new MyLinkedList();
-    b.add(1);
     a.add(0,4);
-    b.add(0,4);
-    System.out.println(b);
     System.out.println(a);
-    System.out.println(b.remove(1));
-    System.out.println(b);
-    System.out.println(b.remove(0));
-    System.out.println(b);
+    System.out.println(a.set(0,5));
+    System.out.println(a);
+    System.out.println(a.set(7,1));
+    System.out.println(a);
+    a.add(7,8);
+    System.out.println(a);
+    System.out.println(a.remove((Integer) 1));
+    System.out.println(a);
   }
 
 }
