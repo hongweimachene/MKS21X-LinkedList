@@ -1,4 +1,5 @@
 public class MyLinkedList{
+  //class node with methods
   private class Node{
     private Integer data;
     private Node next,prev;
@@ -29,18 +30,22 @@ public class MyLinkedList{
   private int length;
   private Node start,end;
 
+  //default linked list is empty
   public MyLinkedList(){
     length = 0;
   }
+
   public int size(){
     return length;
   }
 
   public boolean add(int value){
     Node t = new Node(value);
+    //special case if list is empty
     if (size() == 0) {
       start = t;
       end = t;
+    //links the list with new input
     } else {
       end.setNext(t);
       t.setPrev(end);
@@ -60,10 +65,13 @@ public class MyLinkedList{
     return s.substring(0,s.length()-2)+"]";
   }
 
+  //helper method to get node at index
   private Node getNthNode(int index) {
     int pos = 0;
     Node current = start;
+    //the end will be null once it reaches the end
     if (current != null) {
+      //checks for the correct index
       while (pos < index) {
         current = current.next();
         pos++;
@@ -77,6 +85,7 @@ public class MyLinkedList{
   }
 
   public Integer set(int index, Integer value){
+    //returns original value
     Integer origin = getNthNode(index).value();
     getNthNode(index).set(value);
     return origin;
@@ -84,6 +93,7 @@ public class MyLinkedList{
 
   public boolean contains(Integer value) {
     Node current = start;
+    //checks by value to end of the list
     while (current != null){
       if (current.value() == value) {
         return true;
@@ -92,9 +102,11 @@ public class MyLinkedList{
     }
     return false;
   }
+
   public int indexOf(Integer value) {
     Node current = start;
     int index = 0;
+    //checks by value to end of the list
     while (current != null) {
       if (current.value() == value){
         return index;
@@ -102,26 +114,36 @@ public class MyLinkedList{
       current = current.next();
       index++;
     }
+    //returns -1 if not found
     return -1;
   }
+
   public void add(int index, Integer value) {
     Node t = getNthNode(index);
     Node u = getNthNode(index).prev();
     Node v = new Node(value);
-    u.setNext(v);
-    v.setPrev(u);
-    v.setNext(t);
-    t.setPrev(v);
+    //special case for first index
+    if (index == 0){
+      start = v;
+      v.setNext(t);
+      t.setPrev(v);
+    } else {
+      u.setNext(v);
+      v.setPrev(u);
+      v.setNext(t);
+      t.setPrev(v);
+    }
+    length++;
   }
 
   public Integer remove(int index) {
     Node t = getNthNode(index);
     Integer value = t.value();
-    if(size() == 1) {
+    if(t == start) {
       start = null;
       end = null;
-    }
-    if (size() == 2) {
+    } else if (t == end) {
+      end = t.prev();
       t.prev().setNext(null);
     } else {
       t.next().setPrev(t.prev());
@@ -133,21 +155,7 @@ public class MyLinkedList{
 
   public boolean remove(Integer value) {
     Node t = getNthNode(indexOf(value));
-    if(size() == 1) {
-      start = null;
-      end = null;
-    }
-    if (size() == 2) {
-      t.prev().setNext(null);
-    }
-    if (t == end) {
-      end = t.prev();
-      
-    } else {
-      t.next().setPrev(t.prev());
-      t.prev().setNext(t.next());
-    }
-    return true;
+    
   }
 
   public static void main(String[] args) {
@@ -181,6 +189,16 @@ public class MyLinkedList{
     System.out.println(a.get(0));
     System.out.println(a.set(0,3));
     System.out.println(a);
+    MyLinkedList b = new MyLinkedList();
+    b.add(1);
+    a.add(0,4);
+    b.add(0,4);
+    System.out.println(b);
+    System.out.println(a);
+    System.out.println(b.remove(1));
+    System.out.println(b);
+    System.out.println(b.remove(0));
+    System.out.println(b);
   }
 
 }
