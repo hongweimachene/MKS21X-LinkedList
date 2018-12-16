@@ -62,10 +62,14 @@ public class MyLinkedList{
       s+=current.value()+", ";
       current = current.next();
     }
-    return s.substring(0,s.length()-2)+"]";
+    if (s.length() > 1) {
+      return s.substring(0,s.length()-2)+"]";
+    } else {
+      return s+"]";
+    }
   }
 
-  //helper method to get node at index
+  //helper method to get node at index, private since no one should be able to see nodes
   private Node getNthNode(int index) {
     int pos = 0;
     Node current = start;
@@ -139,9 +143,11 @@ public class MyLinkedList{
   public Integer remove(int index) {
     Node t = getNthNode(index);
     Integer value = t.value();
+    //special case if removed is the first in the list
     if(t == start) {
       start = null;
       end = null;
+    //special case if removed is last in the list
     } else if (t == end) {
       end = t.prev();
       t.prev().setNext(null);
@@ -154,13 +160,14 @@ public class MyLinkedList{
   }
 
   public boolean remove(Integer value) {
-    Node t = getNthNode(indexOf(value));
-    
+    //finds the index of the value and uses remove(int index)
+    remove(indexOf(value));
+    return true;
   }
 
   public static void main(String[] args) {
     MyLinkedList a = new MyLinkedList();
-    System.out.println();
+    System.out.println(a);
     a.add(1);
     System.out.println(a);
     a.add(13);
