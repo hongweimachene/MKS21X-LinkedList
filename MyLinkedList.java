@@ -40,6 +40,7 @@ public class MyLinkedList{
   }
 
   public boolean add(int value){
+    //node being added
     Node t = new Node(value);
     //special case if list is empty
     if (size() == 0) {
@@ -47,6 +48,7 @@ public class MyLinkedList{
       end = t;
     //links the list with new input
     } else {
+      //changes the added value into end variable
       end.setNext(t);
       t.setPrev(end);
       end = t;
@@ -164,7 +166,9 @@ public class MyLinkedList{
     if (index < 0 || index >= size()) {
       throw new IndexOutOfBoundsException();
     }
+    //node being removed
     Node t = getNthNode(index);
+    //store data being removed
     Integer value = t.getData();
     //special case if removed is the first in the list and its the only value
     if(index == 0 && size() == 1) {
@@ -179,6 +183,7 @@ public class MyLinkedList{
       end = t.prev();
       t.prev().setNext(null);
     } else {
+      //value is removed by resetting the next and prev of its next and prev nodes
       t.next().setPrev(t.prev());
       t.prev().setNext(t.next());
     }
