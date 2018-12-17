@@ -12,7 +12,7 @@ public class MyLinkedList{
     private Node prev() {
       return prev;
     }
-    public Integer value() {
+    public Integer getData() {
       return data;
     }
     private void setNext(Node other) {
@@ -21,7 +21,7 @@ public class MyLinkedList{
     private void setPrev(Node other) {
       prev = other;
     }
-    public Integer set(int val) {
+    public Integer setData(int val) {
       Integer original = data;
       data = val;
       return original;
@@ -59,7 +59,7 @@ public class MyLinkedList{
     Node current = start;
     String s = "[";
     while(current!=null){
-      s+=current.value()+", ";
+      s+=current.getData()+", ";
       current = current.next();
     }
     if (s.length() > 1) {
@@ -71,14 +71,12 @@ public class MyLinkedList{
 
   //helper method to get node at index, private since no one should be able to see nodes
   private Node getNthNode(int index) {
-    if (index < 0 || index >= size()) {
-      throw new IndexOutOfBoundsException();
-    }
+    //placeholder index value
     int pos = 0;
     Node current = start;
     //the end will be null once it reaches the end
     if (current != null) {
-      //checks for the correct index
+      //checks up to the correct index
       while (pos < index) {
         current = current.next();
         pos++;
@@ -88,13 +86,19 @@ public class MyLinkedList{
   }
 
   public Integer get(int index) {
-    return getNthNode(index).value();
+    if (index < 0 || index >= size()){
+      throw new IndexOutOfBoundsException();
+    }
+    return getNthNode(index).getData();
   }
 
   public Integer set(int index, Integer value){
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException();
+    }
     //returns original value
-    Integer origin = getNthNode(index).value();
-    getNthNode(index).set(value);
+    Integer origin = getNthNode(index).getData();
+    getNthNode(index).setData(value);
     return origin;
   }
 
@@ -102,7 +106,7 @@ public class MyLinkedList{
     Node current = start;
     //checks by value to end of the list
     while (current != null){
-      if (current.value() == value) {
+      if (current.getData() == value) {
         return true;
       }
       current = current.next();
@@ -115,7 +119,7 @@ public class MyLinkedList{
     int index = 0;
     //checks by value to end of the list
     while (current != null) {
-      if (current.value() == value){
+      if (current.getData() == value){
         return index;
       }
       current = current.next();
@@ -126,26 +130,36 @@ public class MyLinkedList{
   }
 
   public void add(int index, Integer value) {
-    Node t = getNthNode(index);
-    Node u = getNthNode(index).prev();
-    Node v = new Node(value);
-    //special case for first index
-    if (index == 0){
-      start = v;
-      v.setNext(t);
-      t.setPrev(v);
-    } else {
-      u.setNext(v);
-      v.setPrev(u);
-      v.setNext(t);
-      t.setPrev(v);
+    if (index < 0 || index > size()) {
+      throw new IndexOutOfBoundsException();
     }
-    length++;
+    if (index == size()) {
+      add(value);
+    } else {
+      Node t = getNthNode(index);
+      Node u = getNthNode(index).prev();
+      Node v = new Node(value);
+      //case for adding to first index
+      if (index == 0){
+        start = v;
+        v.setNext(t);
+        t.setPrev(v);
+      } else {
+        u.setNext(v);
+        v.setPrev(u);
+        v.setNext(t);
+        t.setPrev(v);
+      }
+      length++;
+    }
   }
 
   public Integer remove(int index) {
+    if (index < 0 || index >= size()) {
+      throw new IndexOutOfBoundsException();
+    }
     Node t = getNthNode(index);
-    Integer value = t.value();
+    Integer value = t.getData();
     //special case if removed is the first in the list
     if(t == start) {
       start = null;
@@ -163,9 +177,13 @@ public class MyLinkedList{
   }
 
   public boolean remove(Integer value) {
-    //finds the index of the value and uses remove(int index)
-    remove(indexOf(value));
-    return true;
+    //if the list contains the value then it will remove
+    if (contains(value)) {
+      //finds the index of the value and uses remove(int index)
+      remove(indexOf(value));
+      return true;
+    }
+    return false;
   }
 
   public static void main(String[] args) {
@@ -209,6 +227,9 @@ public class MyLinkedList{
     System.out.println(a);
     System.out.println(a.remove((Integer) 1));
     System.out.println(a);
+    a.add(8,10);
+    System.out.println(a);
+    System.out.println(a.size());
   }
 
 }
