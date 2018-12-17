@@ -201,8 +201,8 @@ public class MyLinkedList{
     return false;
   }
 
-  public static void main(String[] args) {
-    /*MyLinkedList a = new MyLinkedList();
+  /*public static void main(String[] args) {
+    MyLinkedList a = new MyLinkedList();
     System.out.println(a);
     a.add(1);
     System.out.println(a);
