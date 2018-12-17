@@ -108,7 +108,7 @@ public class MyLinkedList{
     Node current = start;
     //checks by value to end of the list
     while (current != null){
-      if (current.getData() == value) {
+      if (current.getData().equals(value)) {
         return true;
       }
       current = current.next();
@@ -121,7 +121,7 @@ public class MyLinkedList{
     int index = 0;
     //checks by value to end of the list
     while (current != null) {
-      if (current.getData() == value){
+      if (current.getData().equals(value)){
         return index;
       }
       current = current.next();
@@ -201,8 +201,8 @@ public class MyLinkedList{
     return false;
   }
 
-  /*public static void main(String[] args) {
-    MyLinkedList a = new MyLinkedList();
+  public static void main(String[] args) {
+    /*MyLinkedList a = new MyLinkedList();
     System.out.println(a);
     a.add(1);
     System.out.println(a);
@@ -224,11 +224,16 @@ public class MyLinkedList{
     System.out.println(a);
     System.out.println(a.contains(15));
     System.out.println(a.contains(86));
+    System.out.println("indexof");
     System.out.println(a.indexOf(17));
     System.out.println(a.indexOf(2));
+    System.out.println(a.indexOf(15));
+    System.out.println("indexof");
+    System.out.println("remove by value");
     System.out.println(a.remove((Integer) 5));
     System.out.println(a);
     System.out.println(a.size());
+    System.out.println("remove by value");
     System.out.println(a.get(0));
     System.out.println(a.set(0,3));
     System.out.println(a);
@@ -251,6 +256,8 @@ public class MyLinkedList{
     b.add(1);
     System.out.println(b.remove(0));
     System.out.println(b);
-  } */
+    System.out.println(a.remove(new Integer(10)));
+    System.out.println(a);
+  }*/
 
 }
