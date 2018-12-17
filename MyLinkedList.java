@@ -133,18 +133,24 @@ public class MyLinkedList{
     if (index < 0 || index > size()) {
       throw new IndexOutOfBoundsException();
     }
+    //if add to end of list just use add(value) function
     if (index == size()) {
       add(value);
     } else {
+      //node that is being shifted
       Node t = getNthNode(index);
+      //node previous that has to change its next node to add the new value
       Node u = getNthNode(index).prev();
+      //new node being added
       Node v = new Node(value);
       //case for adding to first index
       if (index == 0){
+        //added value will be the start
         start = v;
         v.setNext(t);
         t.setPrev(v);
       } else {
+        //when you add into a list you must set the previous and next to the new value
         u.setNext(v);
         v.setPrev(u);
         v.setNext(t);
@@ -160,12 +166,16 @@ public class MyLinkedList{
     }
     Node t = getNthNode(index);
     Integer value = t.getData();
-    //special case if removed is the first in the list
-    if(t == start) {
+    //special case if removed is the first in the list and its the only value
+    if(index == 0 && size() == 1) {
       start = null;
       end = null;
+    //special case if first value is removed
+    } else if (index == 0) {
+      start = t.next();
+      t.next().setPrev(null);
     //special case if removed is last in the list
-    } else if (t == end) {
+    } else if (index == size() - 1) {
       end = t.prev();
       t.prev().setNext(null);
     } else {
@@ -230,6 +240,12 @@ public class MyLinkedList{
     a.add(8,10);
     System.out.println(a);
     System.out.println(a.size());
+    System.out.println(a.remove(0));
+    System.out.println(a);
+    MyLinkedList b = new MyLinkedList();
+    b.add(1);
+    System.out.println(b.remove(0));
+    System.out.println(b);
   }
 
 }
