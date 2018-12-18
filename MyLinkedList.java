@@ -200,8 +200,22 @@ public class MyLinkedList{
     }
     return false;
   }
+  public void extend(MyLinkedList other){
+        //in O(1) runtime, move the elements from other onto the end of this
+        //The size of other is reduced to 0
+        //The size of this is now the combined sizes of both original lists
+      if (other.size() != 0 || this.size() != 0) {
+        this.end.setNext(other.start);
+        other.start.setPrev(this.end);
+        length+=other.size();
+        end = other.end;
+        other.start=null;
+        other.end=null;
+        other = new MyLinkedList();
+      }
+    }
 
-  /*public static void main(String[] args) {
+  public static void main(String[] args) {
     MyLinkedList a = new MyLinkedList();
     System.out.println(a);
     a.add(1);
@@ -244,8 +258,7 @@ public class MyLinkedList{
     System.out.println(a.set(7,1));
     System.out.println(a);
     a.add(7,8);
-    System.out.println(a);
-    System.out.println(a.remove((Integer) 1));
+
     System.out.println(a);
     a.add(8,10);
     System.out.println(a);
@@ -256,8 +269,13 @@ public class MyLinkedList{
     b.add(1);
     System.out.println(b.remove(0));
     System.out.println(b);
-    System.out.println(a.remove(new Integer(10)));
+    MyLinkedList c = new MyLinkedList();
+    c.add(3);
+    c.add(10);
+    c.add(9);
+    a.extend(c);
     System.out.println(a);
-  }*/
+    System.out.println(c);
+  }
 
 }
