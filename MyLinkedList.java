@@ -204,18 +204,26 @@ public class MyLinkedList{
         //in O(1) runtime, move the elements from other onto the end of this
         //The size of other is reduced to 0
         //The size of this is now the combined sizes of both original lists
-      if (other.size() != 0 || this.size() != 0) {
-        this.end.setNext(other.start);
-        other.start.setPrev(this.end);
+      if (other.size() != 0) {
+        if (size() == 0) {
+          //if this is empty, transfer the other list to it
+          start = other.start;
+          end = other.end;
+        } else {
+          //connects the lists and sets new end
+          end.setNext(other.start);
+          other.start.setPrev(this.end);
+          end = other.end;
+        }
         length+=other.size();
-        end = other.end;
+        //to make the other list empty
         other.start=null;
         other.end=null;
-        other = new MyLinkedList();
+        other.length = 0;
       }
     }
 
-  public static void main(String[] args) {
+  /*public static void main(String[] args) {
     MyLinkedList a = new MyLinkedList();
     System.out.println(a);
     a.add(1);
@@ -258,7 +266,6 @@ public class MyLinkedList{
     System.out.println(a.set(7,1));
     System.out.println(a);
     a.add(7,8);
-
     System.out.println(a);
     a.add(8,10);
     System.out.println(a);
@@ -273,9 +280,16 @@ public class MyLinkedList{
     c.add(3);
     c.add(10);
     c.add(9);
+    System.out.println(c);
     a.extend(c);
     System.out.println(a);
     System.out.println(c);
-  }
+    MyLinkedList d = new MyLinkedList();
+    c.extend(d);
+    System.out.println(c);
+    System.out.println(c.size());
+    c.extend(a);
+    System.out.println(c);
+  }*/
 
 }
